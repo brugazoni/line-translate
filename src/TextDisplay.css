@@ -1,0 +1,20 @@
+.text-display {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.text-display > div {
+    margin-bottom: 30px;
+}
+
+.highlighted-text {
+    border: 1px solid blue;
+    margin: 0px;
+    padding: 1px;
+    font-style: italic;
+    position: absolute;
+    background-color: aliceblue;
+  }
