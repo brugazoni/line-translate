@@ -14,7 +14,7 @@ const TextDisplay = ({ text, targetInputLanguage, targetOutputLanguage }) => {
       setSelectedText(selectedText);
 
       try {
-        const response = await fetch('http://localhost:3001/highlight', {
+        const response = await fetch('https://brugazoni.github.io/line-translate/highlight', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
