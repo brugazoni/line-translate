@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './TextDisplay.css';
+import { ClipLoader } from 'react-spinners';
 
 const TextDisplay = ({ text, targetInputLanguage, targetOutputLanguage }) => {
   const [selectedText, setSelectedText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSelection = async () => {
     const selection = window.getSelection();
@@ -12,9 +14,10 @@ const TextDisplay = ({ text, targetInputLanguage, targetOutputLanguage }) => {
       const range = selection.getRangeAt(0);
       const rect = range.getBoundingClientRect();
       setSelectedText(selectedText);
+      setIsLoading(true);
 
       try {
-        const response = await fetch('https://brugazoni.github.io/line-translate/highlight', {
+        const response = await fetch('https://line-translate.onrender.com/highlight', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -44,6 +47,8 @@ const TextDisplay = ({ text, targetInputLanguage, targetOutputLanguage }) => {
         document.body.appendChild(highlightDiv);
       } catch (error) {
         console.error('Error translating text:', error);
+      } finally {
+        setIsLoading(false); // Set loading state to false after the request is complete
       }
     }
   };
@@ -56,6 +61,11 @@ const TextDisplay = ({ text, targetInputLanguage, targetOutputLanguage }) => {
           {index !== text.split('\n').length - 1 && <br />}
         </div>
       ))}
+      {isLoading && (
+        <div className="loading-icon">
+          <ClipLoader color="#000" size={50} />
+        </div>
+      )}
     </div>
   );
 };
